@@ -13,21 +13,26 @@ const urlsToCache = [
   "./img/favicon.png",
 ];
 
-//durante la fase de instalación, generalmente se almacena en caché los activos estáticos
+// Install: Durante la fase de instalación, generalmente se almacena en caché los activos estáticos
 self.addEventListener("install", (e) => {
   e.waitUntil(
     caches
       .open(CACHE_NAME)
       .then((cache) => {
-        return cache.addAll(urlsToCache).then(() => self.skipWaiting());
+        return cache
+          .addAll(urlsToCache)
+          .then(() => {
+            self.skipWaiting(); // para forzar el reemplazo de el worker anterior (no se recomienda usarlo)
+          }
+          );
       })
       .catch((err) => console.log("Falló registro de cache", err))
   );
 });
 
-//una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
+// Activate: Una vez instalado el SW, se activa y busca los recursos para hacer que funcione sin conexión
 self.addEventListener("activate", (e) => {
-  const cacheWhitelist = [CACHE_NAME];
+  const cacheWhitelist = [ CACHE_NAME ];
 
   e.waitUntil(
     caches
@@ -47,7 +52,7 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-//cuando el navegador recupera una url
+// Fetch: Cuando el navegador recupera una url
 self.addEventListener("fetch", (e) => {
   //Responder ya sea con el objeto en caché o continuar y buscar la url real
   e.respondWith(
@@ -61,3 +66,18 @@ self.addEventListener("fetch", (e) => {
     })
   );
 });
+
+// SYNC: Cuando recuperamos la conexión a internet
+// self.addEventListener("sync", (e) => {
+//   console.log("Tenemos conexión");
+//   console.log(e);
+//   console.log(e.tag);
+// });
+
+// PUSH: Manejar las push notifications
+// self.addEventListener("push", (e) => {
+//   console.log(e);
+//   console.log(e.data);
+//   console.log(e.data.text());
+//   console.log("Notificación recibida");
+// });
