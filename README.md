@@ -47,3 +47,7 @@
 - orientation: Define la orientación de la aplicación
   - Portrait (Vertical): Esta orientación se caracteriza por tener una altura mayor que el ancho. Es ideal para mostrar contenido que se lee de arriba hacia abajo, como textos, listas o imágenes que se benefician de un formato vertical. Por ejemplo, la mayoría de los teléfonos móviles se sostienen en esta posición para leer mensajes o navegar por redes sociales.
   - Landscape (Horizontal): En esta orientación, el ancho es mayor que la altura. Es más adecuada para contenido visual amplio, como videos, juegos o aplicaciones que requieren una vista más amplia. Esta disposición permite una mejor visualización de gráficos y elementos que se extienden horizontalmente.
+
+## APP SHELL
+
+Son todos los recursos que necesita la aplicación a fuerza para que funcione correctamente

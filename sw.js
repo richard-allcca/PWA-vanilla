@@ -57,10 +57,10 @@ self.addEventListener("fetch", (e) => {
   //Responder ya sea con el objeto en caché o continuar y buscar la url real
   e.respondWith(
     caches.match(e.request).then((res) => {
-      if (res) {
-        //recuperar del cache
-        return res;
-      }
+
+      // Si existe en caché lo retornamos
+      if (res) return res;
+
       //recuperar de la petición a la url
       return fetch(e.request);
     })
@@ -80,4 +80,9 @@ self.addEventListener("fetch", (e) => {
 //   console.log(e.data);
 //   console.log(e.data.text());
 //   console.log("Notificación recibida");
+// });
+
+// PUSH: Manejar las push notifications cerradas
+// self.addEventListener("notificationclose", (e) => {
+//   console.log("Notificación cerrada", e);
 // });
